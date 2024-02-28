@@ -17,31 +17,32 @@ const getContacts = () => {
 
 const App = () => {
   const [contacts, setContacts] = useState(getContacts);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     window.localStorage.setItem(storageContactsKey, JSON.stringify(contacts))
   }, [contacts]);
 
-  const [search, setSearch] = useState('');
-
   const saveContact = (contact) => {
     setContacts([...contacts, contact])
   } 
 
-  const deleteContact = (contact) => {
-    setContacts(contacts.filter(e => e !== contact))
+  const deleteContact = (id) => {
+    setContacts(contacts.filter(e => e.id !== id))
   }
 
   const handleSearch = (evt) => {
     setSearch(evt.target.value);
   }
 
+  const searchContacts = search ? contacts.filter(e => e.name.toLowerCase().includes(search.toLowerCase())) : contacts;
+
   return (
     <div className={css.wrapper}>
       <h1>Phonebook</h1>
-      <ContactForm onSave={saveContact} />
+      <ContactForm onAdd={saveContact} />
       <SearchBox search={search} onSearch={handleSearch} />
-      <ContactList contacts={contacts} search={search} onDelete={deleteContact} />
+      <ContactList contacts={searchContacts} onDelete={deleteContact} />
     </div>
   )
 }

@@ -7,7 +7,7 @@ function Contact({ contact, onDelete }) {
                 <p>{contact.name}</p>
                 <p>{contact.number}</p>
             </div>
-            <button type="button" onClick={()=>{onDelete(contact)}}>Delete</button>
+            <button type="button" onClick={()=>{onDelete(contact.id)}}>Delete</button>
         </li>
     )
 }

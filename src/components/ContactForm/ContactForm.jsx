@@ -14,7 +14,7 @@ const ValidationSchema = Yup.object().shape({
   phone: Yup.string().min(3, 'Too short!').max(50, 'Too long!').required('This is required')
 });
 
-function ContactForm({onSave}) {
+function ContactForm({onAdd}) {
   const nameId = useId();
   const telId = useId();
 
@@ -24,7 +24,7 @@ function ContactForm({onSave}) {
       name: values.username,
       number: values.phone,
     }
-    onSave(contact);
+    onAdd(contact);
 		actions.resetForm();
   }
 
@@ -34,7 +34,7 @@ function ContactForm({onSave}) {
         <label htmlFor={nameId}>Name</label>
         <Field type="text" name="username" id={nameId} />
         <span className={css.error}><ErrorMessage name="username" as="span" /></span>
-        <label htmlFor={telId}>Numder</label>
+        <label htmlFor={telId}>Number</label>
         <Field type="tel" name="phone" id={telId} />
         <span className={css.error}><ErrorMessage name="phone" as="span" /></span>
         <button type="submit">Add contact</button>
